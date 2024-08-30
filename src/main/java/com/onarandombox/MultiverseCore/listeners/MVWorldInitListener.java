@@ -8,6 +8,7 @@
 package com.onarandombox.MultiverseCore.listeners;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
@@ -22,8 +23,10 @@ public class MVWorldInitListener implements Listener {
 
     @EventHandler
     public void initWorld(WorldInitEvent event) {
-        if (!plugin.getMVWorldManager().isKeepingSpawnInMemory(event.getWorld())) {
-            event.getWorld().setKeepSpawnInMemory(false);
-        }
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (!plugin.getMVWorldManager().isKeepingSpawnInMemory(event.getWorld())) {
+                event.getWorld().setKeepSpawnInMemory(false);
+            }
+        });
     }
 }
